@@ -34,6 +34,7 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "application.labels" -}}
+release: "{{ .Release.Name }}"
 harness.io/release: {{ .Release.Name }}
 helm.sh/chart: {{ include "application.chart" . }}
 {{ include "application.selectorLabels" . }}

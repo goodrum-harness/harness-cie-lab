@@ -18,6 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        release: "{{ .Release.Name }}"
         harness.io/release: {{ .Release.Name }}
         {{- include "application.selectorLabels" . | nindent 8 }}
     spec:
