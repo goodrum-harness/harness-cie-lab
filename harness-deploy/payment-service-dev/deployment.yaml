@@ -7,6 +7,8 @@ metadata:
  {{- else }}
  name: {{lower .Values.name}}
  {{- end }} 
+  labels:
+    harness.io/release: {{ .Release.Name }}
 data:
 {{.Values.env.config | toYaml | indent 2}}
 ---
@@ -21,6 +23,8 @@ metadata:
  {{- else }}
  name: {{lower .Values.name}}
  {{- end }} 
+  labels:
+    harness.io/release: {{ .Release.Name }}
 stringData:
 {{.Values.env.secrets | toYaml | indent 2}}
 ---
@@ -37,6 +41,8 @@ metadata:
   {{- end }}
   annotations:
     harness.io/skip-versioning: true
+  labels:
+    harness.io/release: {{ .Release.Name }}
 data:
   .dockercfg: {{.Values.dockercfg}}
 type: kubernetes.io/dockercfg
@@ -46,11 +52,13 @@ type: kubernetes.io/dockercfg
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- {{- if lower .Values.sename}}
- name: {{ lower .Values.name }}-{{ lower .Values.sename }}-deployment
- {{- else }}
- name: {{lower .Values.name}}-deployment
- {{- end }} 
+  {{- if lower .Values.sename}}
+  name: {{ lower .Values.name }}-{{ lower .Values.sename }}-deployment
+  {{- else }}
+  name: {{lower .Values.name}}-deployment
+  {{- end }} 
+  labels:
+    harness.io/release: {{ .Release.Name }}
 spec:
   replicas: {{int .Values.replicas}}
   selector:

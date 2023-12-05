@@ -6,6 +6,8 @@ metadata:
 {{- else }}
   name: {{ lower .Values.name}}-svc
 {{- end }}
+  labels:
+    harness.io/release: {{ .Release.Name }}
 spec:
   type: {{.Values.serviceType}}
   ports:
